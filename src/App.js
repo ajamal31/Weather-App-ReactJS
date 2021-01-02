@@ -1,36 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import weatherLogo from "./weatherLogo.png";
 import "./App.css";
 
+const api = {
+	key: "cecfe61da45b46b0ff77615eed1fd730",
+	baseUrl: "https://api.openweathermap.org/data/2.5/weather",
+};
+
 function App() {
-	const [city, setCity] = useState("Edmonton");
-	const [countryCode, setCountryCode] = useState("Canada");
-	const apiKey = "cecfe61da45b46b0ff77615eed1fd730";
-	const url = `https://api.openweathermap.org/data/2.5/weather?q=${city},${countryCode}&units=metric&appid=${apiKey}`;
-	const [weather, setWeather] = useState("");
-	const [icon, setIcon] = useState(null);
-	const [time, setTime] = useState("");
+	const [parameters, setParameters] = useState("Edmonton,CA");
+	const [weather, setWeather] = useState({});
 	const [keyword, setKeyword] = useState("Search ...");
-	const defaultMsg = "Search ...";
-	const defaultCity = "Edmonton";
+	const defaultParameter = "Edmonton,CA";
 
-	function init() {
-		fetch(url)
-			.then((response) => response.json())
-			.then((data) => {
-				var temperature = Math.round(data["main"].temp);
-				var iconUrl = `http://openweathermap.org/img/wn/${data["weather"][0].icon}@2x.png`;
-				var dateTime = new Date(data["dt"] * 1000).toLocaleString();
-				setWeather(temperature);
-				setIcon(iconUrl);
-				setTime(dateTime);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-	}
-
-	// init();
+	useEffect(async () => {
+		const response = await fetch(
+			`${api.baseUrl}?q=${parameters}&units=metric&appid=${api.key}`
+		);
+		const results = await response.json();
+		setWeather(results);
+	}, [parameters]);
 
 	return (
 		<div className="App">
@@ -42,30 +31,41 @@ function App() {
 				</h3>
 			</header>
 			<div className="App-body">
-				<p style={{ color: "lightyellow" }}>{keyword}</p>
+				{weather.weather ? (
+					<div className="App-icon">
+						<img
+							src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
+							alt=""
+						/>
+					</div>
+				) : (
+					<div></div>
+				)}
 				<input
+					id="inputField"
 					className="App-input"
 					type="text"
 					placeholder={keyword}
 					onChange={(e) => {
 						var input = e.target.value;
-						if (input) {
-							setKeyword(input);
-							// Use the following after implementing location autoimplement:
-							// setCity(input);
-						} else {
-							setKeyword(defaultMsg);
-							// Use the following after implementing location autoimplement:
-							// setCity(defaultCity);
-						}
+						input ? setParameters(input) : setParameters(defaultParameter);
 					}}
 				/>
-				<img src={icon} alt="" />
-				<b style={{ color: "orange" }}>{weather}°C</b>
-				<p style={{ color: "lightpink" }}>
-					{city}, {countryCode}
-				</p>
-				<b style={{ color: "lightblue" }}>{time}</b>
+				{weather.main ? (
+					<div>
+						<p style={{ color: "orange" }}>
+							<b>{Math.round(weather.main.temp)}°C</b>
+						</p>
+						<p style={{ color: "lightpink" }}>
+							{weather.name}, {weather.sys.country}
+						</p>
+						<p style={{ color: "lightblue" }}>
+							{new Date(weather.dt * 1000).toLocaleString()}
+						</p>
+					</div>
+				) : (
+					<div>Enter a valid location!</div>
+				)}
 			</div>
 		</div>
 	);
