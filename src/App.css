@@ -3,13 +3,12 @@
 }
 
 .App-logo {
-	height: 5vmin;
-	pointer-events: none;
+	height: 4vh;
 }
 
 .App-header {
 	background-color: #282c34;
-	min-height: 10vh;
+	height: 0vh;
 	display: flex;
 	flex-direction: column;
 	font-size: calc(10px + 2vmin);
@@ -17,7 +16,7 @@
 
 .App-body {
 	background-color: #282c34;
-	min-height: 87vh;
+	height: 100vh;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -26,27 +25,44 @@
 	color: white;
 }
 
-.App-link {
-	color: #61dafb;
-}
-
 .App-input {
 	width: 15em;
 	height: 1em;
 	background: lightyellow;
 	color: gray;
 	border: none;
-	border-radius: 15px;
+	border-radius: 5px;
 	outline: none;
 	padding: 0.5rem;
 	box-shadow: 0 0 7px 0 lightyellow, 0 20px 25px 0 rgba(0, 0, 0, 0.2);
 	font-size: medium;
+	margin-top: 5vh;
 }
 
 .App-input::placeholder {
 	color: gray;
 }
 
-.App-icon img {
+.App-input:hover {
+	box-shadow: 0 0 10px 0 orange;
+}
+
+.App-info img {
 	margin: 20px;
+	filter: drop-shadow(0px 0px 5px white) drop-shadow(0px 0px 2px white);
+}
+
+.App-info p {
+	font-size: calc(40px + 2vmin);
+	margin: auto;
+	color: orange;
+}
+
+.App-footer a {
+	font-size: calc(6px + 2vmin);
+	color: rgba(20, 183, 220, 0.7);
+}
+
+.App-footer a:hover {
+	color: rgba(20, 183, 220, 1);
 }

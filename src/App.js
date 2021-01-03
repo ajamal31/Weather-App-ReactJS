@@ -24,48 +24,51 @@ function App() {
 	return (
 		<div className="App">
 			<header className="App-header">
-				{" "}
 				<h3 style={{ color: "lightgreen" }}>
-					Arun's Weather App {""}
-					<img className="App-logo" src={weatherLogo} alt="" />
+					<input
+						className="App-input"
+						type="text"
+						placeholder={keyword}
+						onChange={(e) => {
+							var input = e.target.value;
+							input ? setParameters(input) : setParameters(defaultParameter);
+						}}
+					/>
 				</h3>
 			</header>
+
 			<div className="App-body">
+				{/* Temperature and weather icon is viewed here */}
 				{weather.weather ? (
-					<div className="App-icon">
+					<div className="App-info">
 						<img
 							src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
 							alt=""
 						/>
+						<p>{Math.round(weather.main.temp)}°</p>
 					</div>
 				) : (
 					<div></div>
 				)}
-				<input
-					id="inputField"
-					className="App-input"
-					type="text"
-					placeholder={keyword}
-					onChange={(e) => {
-						var input = e.target.value;
-						input ? setParameters(input) : setParameters(defaultParameter);
-					}}
-				/>
 				{weather.main ? (
 					<div>
-						<p style={{ color: "orange" }}>
-							<b>{Math.round(weather.main.temp)}°C</b>
-						</p>
 						<p style={{ color: "lightpink" }}>
 							{weather.name}, {weather.sys.country}
 						</p>
 						<p style={{ color: "lightblue" }}>
-							{new Date(weather.dt * 1000).toLocaleString()}
+							Last Updated:{" "}
+							<b>{new Date(weather.dt * 1000).toLocaleTimeString()}</b>
 						</p>
 					</div>
 				) : (
 					<div>Enter a valid location!</div>
 				)}
+				<footer className="App-footer">
+					<p style={{ color: "lightgreen" }}>Arun's Weather App</p>
+					<a href="https://github.com/ajamal31/Weather-App-ReactJS">
+						Source Code
+					</a>
+				</footer>
 			</div>
 		</div>
 	);
