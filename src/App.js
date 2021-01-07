@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import weatherLogo from "./weatherLogo.png";
 import "./App.css";
 
 const api = {
@@ -10,15 +9,18 @@ const api = {
 function App() {
 	const [parameters, setParameters] = useState("Edmonton,CA");
 	const [weather, setWeather] = useState({});
-	const [keyword, setKeyword] = useState("Search ...");
+	const keyword = "Search ...";
 	const defaultParameter = "Edmonton,CA";
 
-	useEffect(async () => {
-		const response = await fetch(
-			`${api.baseUrl}?q=${parameters}&units=metric&appid=${api.key}`
-		);
-		const results = await response.json();
-		setWeather(results);
+	useEffect(() => {
+		const fetchData = async () => {
+			const response = await fetch(
+				`${api.baseUrl}?q=${parameters}&units=metric&appid=${api.key}`
+			);
+			const results = await response.json();
+			setWeather(results);
+		};
+		fetchData();
 	}, [parameters]);
 
 	return (
