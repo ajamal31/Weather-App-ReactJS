@@ -61,7 +61,7 @@ function App() {
 						<p>{new Date(weather.dt * 1000).toLocaleTimeString()}</p>
 					</div>
 				) : (
-					<p>Enter a valid location!</p>
+					<p>Please enter a valid location</p>
 				)}
 				<footer className="App-footer">
 					<a href="https://github.com/ajamal31/Weather-App-ReactJS">
