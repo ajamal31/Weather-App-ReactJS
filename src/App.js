@@ -24,7 +24,7 @@ function App() {
 	return (
 		<div className="App">
 			<header className="App-header">
-				<h3 style={{ color: "lightgreen" }}>
+				<h3>
 					<input
 						className="App-input"
 						type="text"
@@ -45,6 +45,7 @@ function App() {
 							src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
 							alt=""
 						/>
+						<p className="Temp-description">{weather.weather[0].description}</p>
 						<p>{Math.round(weather.main.temp)}°</p>
 					</div>
 				) : (
@@ -52,19 +53,16 @@ function App() {
 				)}
 				{weather.main ? (
 					<div>
-						<p style={{ color: "lightpink" }}>
+						<p>
 							{weather.name}, {weather.sys.country}
 						</p>
-						<p style={{ color: "lightblue" }}>
-							Last Updated:{" "}
-							<b>{new Date(weather.dt * 1000).toLocaleTimeString()}</b>
-						</p>
+						<p>{new Date(weather.dt * 1000).toLocaleTimeString()}</p>
 					</div>
 				) : (
 					<div>Enter a valid location!</div>
 				)}
 				<footer className="App-footer">
-					<p style={{ color: "lightgreen" }}>Arun's Weather App</p>
+					<p>Arun's Weather App</p>
 					<a href="https://github.com/ajamal31/Weather-App-ReactJS">
 						Source Code
 					</a>
