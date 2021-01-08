@@ -30,10 +30,6 @@
 	); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
 	height: 100vh;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
 	font-size: calc(10px + 2vmin);
 	color: seashell;
 }
@@ -88,11 +84,32 @@
 .App-footer a {
 	font-size: calc(6px + 2vmin);
 	color: rgba(255, 255, 255, 1);
-	position: absolute;
-	display: flex;
-	bottom: 3vh;
-	left: 40vw;
 	animation: 2s ease 0s 1 fadeIn;
+}
+
+@media (min-width: 1025px) {
+	.App-footer a {
+		position: absolute;
+		bottom: 3vh;
+		left: 40vw;
+	}
+
+	.App-body {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+}
+
+@media (max-width: 1024px) {
+	.App-body {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		height: 87vh;
+	}
 }
 
 .App-footer a:hover {
